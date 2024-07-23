@@ -15,6 +15,7 @@ import os
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 import time
 import warnings
+import weave
 from tqdm import tqdm
 warnings.simplefilter("ignore", category=DeprecationWarning)
 warnings.simplefilter("ignore", category=FutureWarning)
@@ -149,9 +150,15 @@ def parse_args():
         "This will save budge for those models that has been judged before."
         "it also helps to do some analysis easily without running judgements again."
         )
+    parser.add_argument(
+        "--weave_project", 
+        type=str, 
+        default="MixEval", 
+        help="Weave project to use for evaluation."
+        )
     return parser.parse_args()
 
-
+@weave.op
 def _eval(args):
     print(f"\n\nStart to evaluate {args.model_name}'s {args.split} split. \n\n")
     time_elapsed = 0
@@ -235,7 +242,7 @@ def _eval(args):
     print(f"Finished evaluating {args.model_name}'s {args.split} split. "
           f"Used {round(time_elapsed / 60, 2)} minutes.")
 
-
+@weave.op
 def eval(args):
     if args.benchmark == "mixeval":
         args.split = "close_freeform"

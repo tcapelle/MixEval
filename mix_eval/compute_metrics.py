@@ -15,6 +15,7 @@ python -m mix_eval.compute_metrics \
 '''
 import json
 import argparse
+import weave
 import os
 from tqdm import tqdm
 import time
@@ -215,6 +216,7 @@ def compute_metric_closeended_freeform_ruleparse_from_judgefile(args):
     
     return score_dict
 
+@weave.op
 def compute_metric_closeended_multichoice_modelparse_from_judgefile(args):
     score_dict = {}
     if args.models_to_eval is not None:
@@ -273,6 +275,7 @@ def compute_metric_closeended_multichoice_modelparse_from_judgefile(args):
     
     return score_dict
 
+@weave.op
 def compute_metric_closeended_multichoice_ruleparse_from_judgefile(args):
     score_dict = {}
     if args.models_to_eval is not None:
@@ -487,6 +490,7 @@ def compute_metric_closeended_freeform_ruleparse(args):
         
     return score_dict
 
+@weave.op
 def compute_metric_closeended_freeform(args):
     if args.free_form_parser == "model":
         return compute_metric_closeended_freeform_modelparse(args)
@@ -494,6 +498,7 @@ def compute_metric_closeended_freeform(args):
         return compute_metric_closeended_freeform_ruleparse(args)
 
 
+@weave.op
 def compute_metric_closeended_multichoice_modelparse(args):
     if args.compute_score_from_judged_file:
         return compute_metric_closeended_multichoice_modelparse_from_judgefile(args)
@@ -601,6 +606,7 @@ def compute_metric_closeended_multichoice_modelparse(args):
     return score_dict
 
 
+@weave.op
 def compute_metric_closeended_multichoice_ruleparse(args):
     if args.compute_score_from_judged_file:
         return compute_metric_closeended_multichoice_ruleparse_from_judgefile(args)
@@ -718,7 +724,8 @@ def print_table(data_dict):
     
     # Print the table
     print(table) 
-                
+
+@weave.op                         
 def compute_metric(args):
     score_dict_ff = compute_metric_closeended_freeform(args)
     score_dict_mp = compute_metric_closeended_multichoice(args)
