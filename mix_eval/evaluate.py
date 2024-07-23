@@ -260,6 +260,8 @@ def eval(args):
 if __name__ == '__main__':
     set_seed()
     args = parse_args()
+    if args.weave_project:
+        weave.init(args.weave_project)
     try:
         eval(args)
         if not args.inference_only:
