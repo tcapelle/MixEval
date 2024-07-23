@@ -196,9 +196,9 @@ def _eval(args):
     eval_dataset = get_eval_dataset(args)
     dataloader = DataLoader(
         eval_dataset, 
-        batch_size=args.batch_size, 
+        batch_size=1, 
         shuffle=False, 
-        num_workers=32, 
+        num_workers=1, 
         collate_fn=lambda x: x
         )
     

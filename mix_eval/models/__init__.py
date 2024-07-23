@@ -1,4 +1,6 @@
 AVAILABLE_MODELS = {
+
+    "llama_405b_instruct": "Llama405B_instruct",
     # open models
     "llama_2_7b": "LLAMA_2_7B",
     "llama_2_70b": "LLAMA_2_70B",
