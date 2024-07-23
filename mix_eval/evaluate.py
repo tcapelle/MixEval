@@ -242,7 +242,6 @@ def _eval(args):
     print(f"Finished evaluating {args.model_name}'s {args.split} split. "
           f"Used {round(time_elapsed / 60, 2)} minutes.")
 
-@weave.op
 def eval(args):
     if args.benchmark == "mixeval":
         args.split = "close_freeform"
@@ -260,8 +259,7 @@ def eval(args):
 if __name__ == '__main__':
     set_seed()
     args = parse_args()
-    if args.weave_project:
-        weave.init(args.weave_project)
+    weave.init(args.weave_project)
     try:
         eval(args)
         if not args.inference_only:
